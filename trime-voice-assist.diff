@@ -1,0 +1,37 @@
+# Trime 语音输入补丁（长按空格 + 工具栏 🎤）
+#
+# 在任意 rime 用户目录里打：
+#   patch -p1 < trime-voice-assist.diff          （或 git apply trime-voice-assist.diff）
+# 之后在 Trime 设置里「重新部署」生效。
+#
+# 注意：下面的 @33 / @43 取自本机已验证的下标。若换主题版本，
+# 请改用同目录的 trime-voice-assist.sh apply —— 它会自己算下标。
+#
+
+diff --git a/trime.custom.yaml b/trime.custom.yaml
+new file mode 100644
+--- /dev/null
++++ b/trime.custom.yaml
+@@ -0,0 +1,5 @@
++patch:
++  "preset_keyboards/qwerty/keys/@33/long_click": VOICE_ASSIST
++  "preset_keyboards/qwerty0/keys/@43/long_click": VOICE_ASSIST
++  "preset_keyboards/us_intl/keys/@43/long_click": VOICE_ASSIST
++  "preset_keyboards/array30/keys/@43/long_click": VOICE_ASSIST
+
+diff --git a/tongwenfeng.trime.custom.yaml b/tongwenfeng.trime.custom.yaml
+new file mode 100644
+--- /dev/null
++++ b/tongwenfeng.trime.custom.yaml
+@@ -0,0 +1,11 @@
++patch:
++  "preset_keyboards/default/keys/@33/long_click": VOICE_ASSIST
++  "preset_keyboards/letter/keys/@33/long_click": VOICE_ASSIST
++  "tool_bar/buttons":
++    - {action: Hide, foreground: {normal: candidate_text_color, style: "ic@keyboard_close"}}
++    - {action: liquid_keyboard_emoji, foreground: {style: "ic@emoticon"}}
++    - {action: clipboard_window, foreground: {style: "ic@clipboard"}}
++    - {action: Keyboard_editor, foreground: {style: "ic@cursor_text"}}
++    - {action: Mode_switch, foreground: {font_size: 18, option_styles: ["中", En], padding: 10}}
++    - {action: Zenkaku_Hankaku, foreground: {option_styles: ["ic@moon_full", "ic@moon_new"]}}
++    - {action: VOICE_ASSIST, foreground: {font_size: 20, padding: 10, style: "🎤"}}
